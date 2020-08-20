@@ -11,7 +11,7 @@ const {validateBuy , validateCreate , validateSell } = require('./middleware/val
 const History = require('../models/History')
 
 router.get('/all' , async (req,res,next) => {
-
+    return res.send({gg: 'yeahbuddy'}).status(200)
 
 try {
 let stocks = await Stock.find()

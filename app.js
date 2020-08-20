@@ -13,7 +13,7 @@ const http = require("http");
 const socketIo = require("socket.io");
 const History = require('./models/History')
 
-const index = require('./routes/index');
+const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const stockRouter = require('./routes/stocks')
 const portfolioRouter = require('./routes/porfolio')
@@ -54,8 +54,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-// app.use('/', indexRouter);
-app.use(index);
+app.use('/', indexRouter);
+
 app.use('/users', usersRouter);
 app.use('/stock' , stockRouter)
 app.use('/portfolio' , portfolioRouter)
@@ -64,49 +64,49 @@ app.use('/portfolio' , portfolioRouter)
 
 
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-const io = socketIo(server);
+// const io = socketIo(server);
 
-io.on("connection", (socket) => {
-  let history
-  console.log("New client connected");
-  setInterval(async () =>{
-  let newHistory = await History.find()
-    if (history){
-      if(newHistory.length > history.length){
-        history = newHistory
-          return getApiAndEmit(socket)
-      }
-      return
-    }
-    if(!history){
-      history = newHistory
-      getApiAndEmit(socket)
-    }
-  //   console.log(!history)
-  // getApiAndEmit(socket)
+// io.on("connection", (socket) => {
+//   let history
+//   console.log("New client connected");
+//   setInterval(async () =>{
+//   let newHistory = await History.find()
+//     if (history){
+//       if(newHistory.length > history.length){
+//         history = newHistory
+//           return getApiAndEmit(socket)
+//       }
+//       return
+//     }
+//     if(!history){
+//       history = newHistory
+//       getApiAndEmit(socket)
+//     }
+//   //   console.log(!history)
+//   // getApiAndEmit(socket)
 
-  }
-  , 1000);
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-  });
-});
+//   }
+//   , 1000);
+//   socket.on("disconnect", () => {
+//     console.log("Client disconnected");
+//   });
+// });
 
 
 
-const getApiAndEmit = socket => {
-  History.find().then((data) => {
-    socket.emit("data", data);
-  })
-  const response = new Date();
-  // Emitting a new message. Will be consumed by the client
-  // socket.emit("FromAPI", response);
-};
-const port =  4001;
+// const getApiAndEmit = socket => {
+//   History.find().then((data) => {
+//     socket.emit("data", data);
+//   })
+//   const response = new Date();
+//   // Emitting a new message. Will be consumed by the client
+//   // socket.emit("FromAPI", response);
+// };
+// const port =  4001;
 
-server.listen(port, () => console.log(`Listening on port ${port}`))
+// server.listen(port, () => console.log(`Listening on port ${port}`))
 
 
 

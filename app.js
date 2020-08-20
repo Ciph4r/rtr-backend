@@ -24,7 +24,7 @@ const portfolioRouter = require('./routes/porfolio')
 
 
 mongoose
-.connect('mongodb+srv://Dave:ssaiyanz3335@cluster0.zwk9t.mongodb.net/RagsToRiches?retryWrites=true&w=majority' , {
+.connect(process.env.MONGODB_URI , {
     useNewUrlParser : true,
     useUnifiedTopology: true,
     useCreateIndex: true,

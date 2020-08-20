@@ -1,10 +1,10 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const app = express();
-const session = require('express-session');
-let MongoStore = require('connect-mongo')(session)
+// const session = require('express-session');
+// let MongoStore = require('connect-mongo')(session)
 require('dotenv').config()
 require('./lib/passport');
 const log = console.log
@@ -51,7 +51,7 @@ mongoose
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(cookieParser());
 
 
 app.use('/', indexRouter);

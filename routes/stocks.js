@@ -24,6 +24,10 @@ catch(err){
 
 })
 
+router.get('/g' , (req,res,next) => {
+return res.send({gg: 'yeahbuddy'}).status(200)
+})
+
 router.get('/stock/:id' ,  async (req,res,next)=> {
     
     try {

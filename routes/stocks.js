@@ -19,7 +19,7 @@ return res.status(200).json({stocks})
 }
 
 catch(err){
-    throw(err)
+    return res.status(500).json({errors : err})
 }
 
 })

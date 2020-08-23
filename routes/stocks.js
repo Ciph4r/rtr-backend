@@ -11,10 +11,16 @@ const {validateBuy , validateCreate , validateSell } = require('./middleware/val
 const History = require('../models/History')
 
 router.get('/all' , async (req,res,next) => {
-    let stocks = await Stock.find()
-    return res.status(200).json({stocks})
 
 
+try {
+let stocks = await Stock.find()
+return res.status(200).json({stocks})
+}
+
+catch(err){
+    return res.status(500).json({errors : err})
+}
 
 })
 
@@ -37,7 +43,7 @@ router.get('/stock/:id' ,  async (req,res,next)=> {
 })
 
 
-router.post('/create'  , validateCreate ,async (req,res,next) => {
+router.post('/create' , verifyToken , validateCreate ,async (req,res,next) => {
     const {name, price , units , email , password} = req.body
     try {
         const exist = await Stock.findOne({name})
@@ -68,7 +74,7 @@ router.post('/create'  , validateCreate ,async (req,res,next) => {
                     console.log(portfolio)
                     portfolio.stocks.push({
                         id: newStock._id,
-                        name,
+                        name: name.toLowerCase(),
                         units,
                     })
                     user.capital -= price * units
@@ -99,9 +105,8 @@ router.post('/create'  , validateCreate ,async (req,res,next) => {
 router.put('/buy/:id' , verifyToken, validateBuy ,  async (req,res,next) => {
     const {email , order ,password} = req.body
     const id = req.params.id
-    console.log(req.body)
     try {
-         
+        
         let user = await User.findOne({email})
       
         let portfolio = await Portfolio.findOne({owner: user._id})
@@ -144,7 +149,6 @@ router.put('/buy/:id' , verifyToken, validateBuy ,  async (req,res,next) => {
                    })
                     
                     if (exist > -1){
-                
                         let number  = await portfolio.stocks[exist].units + order
                         Portfolio.updateOne({'owner': user._id, 'stocks.name' : stock.name},
                         {'$set': {
@@ -165,12 +169,14 @@ router.put('/buy/:id' , verifyToken, validateBuy ,  async (req,res,next) => {
                     .then(async(portfolio)=> {
                         
                         try{
+                            
                             let sellerportfolio = await Portfolio.findOne({owner: stock.owner})
+                            
+                            
                             let exist = await sellerportfolio.stocks.findIndex((searchStock) => {
                                 return searchStock.name === stock.name
                             })
                             let number  = await sellerportfolio.stocks[exist].units - order
-
                             Portfolio.updateOne({'owner': stock.owner, 'stocks.name' : stock.name},
                             {'$set': {
                                    'stocks.$.units': number,

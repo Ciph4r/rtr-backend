@@ -32,6 +32,8 @@ router.post('/signup',validateSignup, async (req,res,next) => {
     
     await user.save().then((user)=> {
       let portfolio = new Portfolio({owner: user._id}).save()
+      let history = new History({message: `${user.email} Just Joined The Market`})
+      history.save()
      return res.status(200).json({message: 'User created' , user})
     })
   }
@@ -98,7 +100,7 @@ router.put('/update', verifyToken, validateUpdate,  async(req,res,next) => {
 })
 
 
-router.post('/user' , async (req,res,next) => {
+router.post('/user' , verifyToken , async (req,res,next) => {
 
   try{
     const {email , password} = req.body

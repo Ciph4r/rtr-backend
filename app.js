@@ -169,7 +169,7 @@ const priceRNGUpdate =  () => {
 
 (function loop() {
   const rngTime = Math.ceil(Math.random() * (900000 - 300000)) + 300000
-  console.log(`next stock update in ${rngTime / 1000} MS`)
+  console.log(`next stock update in ${rngTime / 1000} Seconds`)
   setTimeout(function() {
           priceRNGUpdate();
           loop();  

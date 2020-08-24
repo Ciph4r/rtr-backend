@@ -107,7 +107,7 @@ const getApiAndEmit = socket => {
 };
 // const port =  4001;
 
-server.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+server.listen(app)
 
 
 

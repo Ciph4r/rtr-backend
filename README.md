@@ -1,8 +1,9 @@
 ### Welcome to Rags to Riches
 #### Sever Status
 [![Website](https://img.shields.io/website?label=rtr.surge.sh&style=for-the-badge&url=https%3A%2F%2Frtr.surge.sh)](https://rtr.surge.sh)
-
 <br />
+
+![Visits Badge](https://badges.pufler.dev/visits/ciph4r/rtr-backend)
 
 ### Languages and Tools Used:
 

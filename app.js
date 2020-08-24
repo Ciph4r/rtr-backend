@@ -10,8 +10,8 @@ require('./lib/passport');
 const log = console.log
 const PORT = process.env.PORT || 8080
 const PORT2 = process.env.PORT2 || 4000
-const http = require("http");
-const socketIo = require("socket.io");
+// const http = require("http");
+// const socketIo = require("socket.io");
 const History = require('./models/History')
 
 const indexRouter = require('./routes/index');
@@ -65,9 +65,9 @@ app.use('/portfolio' , portfolioRouter)
 
 
 
-const server = http.createServer(app);
+const server = require('http').createServer(app)
 
-const io = socketIo(server);
+const io = require('socket.io')(server);
 
 io.on("connection", (socket) => {
   let history
@@ -89,7 +89,7 @@ io.on("connection", (socket) => {
   // getApiAndEmit(socket)
 
   }
-  , 1000000);
+  , 1000);
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
@@ -107,7 +107,7 @@ const getApiAndEmit = socket => {
 };
 // const port =  4001;
 
-server.listen(PORT2, () => console.log(`Listening on port ${PORT2}`))
+server.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 
 
 

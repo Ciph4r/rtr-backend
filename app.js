@@ -61,13 +61,13 @@ app.use('/users', usersRouter);
 app.use('/stock' , stockRouter)
 app.use('/portfolio' , portfolioRouter)
 
-
+const server = http.createServer(app);
 const { Server } = require('ws');
 
 const wss = new Server({ server });
 
 
-// const server = http.createServer(app);
+
 
 // const io = socketIo(server);
 

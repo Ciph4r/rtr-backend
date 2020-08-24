@@ -69,8 +69,44 @@ app.use('/portfolio' , portfolioRouter)
 
 
 const server = http.createServer(app);
-
 const io = socketIo(server);
+
+// let history
+
+// const sendHistory = (req,res,next) => {
+//   io.on("connection", async (socket) => {
+//     console.log("New client connected");
+//     let newHistory = await History.find()
+//         if(newHistory.length > history.length){
+//           history = newHistory
+//           socket.emit("data", history)
+//         }
+//   });
+//   next()
+// }
+
+// app.use(sendHistory)
+
+// io.on("connection", async (socket) => {
+//   console.log("New client connected");
+//     if (history){
+//       let newHistory = await History.find()
+//       if(newHistory.length > history.length){
+//         history = newHistory
+//           return socket.emit("data", history)
+//       }
+//       return
+//     }
+//     if(!history){
+//       let newHistory = await History.find()
+//       history = newHistory
+//       socket.emit("data", newHistory)
+//     }
+//   socket.on("disconnect", () => {
+//     console.log("Client disconnected");
+//   });
+// });
+
 
 io.on("connection", (socket) => {
   let history
@@ -80,16 +116,14 @@ io.on("connection", (socket) => {
     if (history){
       if(newHistory.length > history.length){
         history = newHistory
-          return getApiAndEmit(socket)
+          return socket.emit("data", history)
       }
       return
     }
     if(!history){
       history = newHistory
-      getApiAndEmit(socket)
+      socket.emit("data", history)
     }
-  //   console.log(!history)
-  // getApiAndEmit(socket)
 
   }
   , 1000);
@@ -100,15 +134,6 @@ io.on("connection", (socket) => {
 
 
 
-const getApiAndEmit = socket => {
-  History.find().then((data) => {
-    socket.emit("data", data);
-  })
-  const response = new Date();
-  // Emitting a new message. Will be consumed by the client
-  // socket.emit("FromAPI", response);
-};
-// const port =  4001;
 
 server.listen(PORT2, () => console.log(`Listening on port ${PORT2}`))
 
@@ -120,7 +145,6 @@ app.listen(PORT , () => {
 })
 
 const priceRNGUpdate =  () => {
-
   const rngPrice = (price) => {
   let rng = Math.ceil(Math.random() * 2)
     if (rng === 1){
@@ -131,9 +155,6 @@ const priceRNGUpdate =  () => {
       return price += (rng/100) * price
     }
   }
-
-
-
   Stocks.find().then((stocks) => {
     stocks.forEach((stock) => {
       stock.price = rngPrice(stock.price).toFixed(2)

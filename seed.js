@@ -76,7 +76,6 @@ const seed = (data) => {
         price: price
     })
     
-    console.log(stock)
     stock.save()
     .then((data) => {
         Portfolio.findOne({owner : '5f3ec8d5b4c6f12b240b0521'}).then((port) => {

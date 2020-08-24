@@ -71,7 +71,6 @@ catch(error){
 
 router.put('/update', verifyToken, validateUpdate,  async(req,res,next) => {
   const {name , email, userEmail, password ,  nPassword , retypeNPassword} = req.body
-  console.log(req.body)
   try {
     let user = await User.findOne({email: userEmail})
     const newEmail = await User.findOne({email})

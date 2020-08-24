@@ -49,13 +49,11 @@ router.post('/create' , verifyToken , validateCreate ,async (req,res,next) => {
         }
         let user = await User.findOne({email})
         if (user){
-            console.log(req.body)
             // const match = await bcrypt.compare(password, user.password)
             // console.log(req.body)
             // if(!match){
             //     return res.status(500).json({errors : 'Invalid Password'})
             //   }
-              console.log(req.body)
             if (price * units > user.capital){
                 return res.status(200).json({errors : 'Insufficent Funds'})
             }
@@ -68,7 +66,6 @@ router.post('/create' , verifyToken , validateCreate ,async (req,res,next) => {
             .then((stock) => {
                 Portfolio.findOne({owner:user._id})
                 .then((portfolio) => {
-                    console.log(portfolio)
                     portfolio.stocks.push({
                         id: newStock._id,
                         name: name.toLowerCase(),
@@ -120,7 +117,6 @@ router.put('/buy/:id' , verifyToken, validateBuy ,  async (req,res,next) => {
                 return res.status(500).json({errors : 'You Own This Stock'})
             }
             if(order > (stock.units - stock.sold)){
-                console.log(1)
                 return res.status(500).json({errors: `Your Request for ${order} exeeded the amount ${(stock.units - stock.sold)}`})
             }
             if(user.captial < (order * stock.price)){
@@ -225,8 +221,6 @@ router.put('/sell/:id' , verifyToken, validateSell , async(req,res,next) => {
         if(!match){
             return res.status(500).json({errors : 'Invalid Password'})
           }
-
-        console.log(req.body)
         let owner = `${stock.owner}` === `${user._id}` 
         if(typeof sell !== 'number'){
             return res.json({errors : 'sell must be a number'})

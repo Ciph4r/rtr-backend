@@ -116,13 +116,21 @@ io.on("connection", (socket) => {
   setInterval(async () =>{
   let newHistory = await History.find()
     if (history){
-      if(newHistory.length > history.length){
+      if(newHistory[newHistory.length -1].timestamp !== history[history.length -1].timestamp){
+        if (newHistory.length > 30){
+          history = newHistory.slice(newHistory.length - 30)
+          return socket.emit("data", history)
+        }
         history = newHistory
           return socket.emit("data", history)
       }
       return
     }
     if(!history){
+      if (newHistory.length > 30){
+        history = newHistory.slice(newHistory.length - 30)
+        return socket.emit("data", history)
+      }
       history = newHistory
       socket.emit("data", history)
     }

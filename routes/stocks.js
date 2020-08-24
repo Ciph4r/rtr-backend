@@ -12,7 +12,6 @@ const History = require('../models/History')
 
 router.get('/all' , async (req,res,next) => {
 
-
 try {
 let stocks = await Stock.find()
 return res.status(200).json({stocks})
@@ -24,9 +23,7 @@ catch(err){
 
 })
 
-router.get('/g' , (req,res,next) => {
-return res.send({gg: 'yeahbuddy'}).status(200)
-})
+
 
 router.get('/stock/:id' ,  async (req,res,next)=> {
     

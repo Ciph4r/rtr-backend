@@ -70,14 +70,17 @@ catch(error){
 
 router.put('/update', verifyToken, validateUpdate,  async(req,res,next) => {
   const {name , email, userEmail, password ,  nPassword , retypeNPassword} = req.body
-  
+  console.log(req.body)
   try {
     let user = await User.findOne({email: userEmail})
     const newEmail = await User.findOne({email})
     const match = await bcrypt.compare(password, user.password)
 
-    if(newEmail){
-      return res.status(500).json({errors : 'Email Already Registered'})
+    if(email){
+      const newEmail = await User.findOne({email})
+      if(newEmail){
+        return res.status(500).json({errors : 'Email Already Registered'})
+      }
     }
 
     if(!match){

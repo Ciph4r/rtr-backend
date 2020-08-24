@@ -89,7 +89,7 @@ io.on("connection", (socket) => {
   // getApiAndEmit(socket)
 
   }
-  , 1000);
+  , 1000000);
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });

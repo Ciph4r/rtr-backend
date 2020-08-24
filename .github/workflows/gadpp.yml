@@ -15,5 +15,5 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github-username: 'ciph4r'
+          github-username: 'Ciph4r'
           user-email: 'david.lau@codeimmersives.com'

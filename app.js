@@ -18,6 +18,8 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const stockRouter = require('./routes/stocks')
 const portfolioRouter = require('./routes/porfolio')
+const cors = require("cors")
+
 
 
 
@@ -51,7 +53,7 @@ mongoose
 
 
 
-
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

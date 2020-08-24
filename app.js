@@ -62,14 +62,16 @@ app.use('/stock' , stockRouter)
 app.use('/portfolio' , portfolioRouter)
 
 
+const { Server } = require('ws');
+
+const wss = new Server({ server });
 
 
+// const server = http.createServer(app);
 
-const server = http.createServer(app);
+// const io = socketIo(server);
 
-const io = socketIo(server);
-
-io.on("connection", (socket) => {
+wss.on("connection", (socket) => {
   let history
   console.log("New client connected");
   setInterval(async () =>{
@@ -90,7 +92,7 @@ io.on("connection", (socket) => {
 
   }
   , 1000);
-  socket.on("disconnect", () => {
+  wss.on("disconnect", () => {
     console.log("Client disconnected");
   });
 });
@@ -99,7 +101,7 @@ io.on("connection", (socket) => {
 
 const getApiAndEmit = socket => {
   History.find().then((data) => {
-    socket.emit("data", data);
+    wss.emit("data", data);
   })
   const response = new Date();
   // Emitting a new message. Will be consumed by the client

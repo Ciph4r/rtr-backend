@@ -21,13 +21,13 @@
 <br />
 <br />
 
+<!-- START gadpp -->
 
 ---
 
 <details>
   <summary>Recent Github Activity</summary>
-  
-<!--START_SECTION:activity-->
+  <!--START_SECTION:activity-->
 <!--END_SECTION:activity-->
 
 </details>

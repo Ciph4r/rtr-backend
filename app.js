@@ -61,17 +61,15 @@ app.use('/users', usersRouter);
 app.use('/stock' , stockRouter)
 app.use('/portfolio' , portfolioRouter)
 
+
+
+
+
 const server = http.createServer(app);
-const { Server } = require('ws');
 
-const wss = new Server({ server });
+const io = socketIo(server);
 
-
-
-
-// const io = socketIo(server);
-
-wss.on("connection", (socket) => {
+io.on("connection", (socket) => {
   let history
   console.log("New client connected");
   setInterval(async () =>{
@@ -92,7 +90,7 @@ wss.on("connection", (socket) => {
 
   }
   , 1000);
-  wss.on("disconnect", () => {
+  socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
 });
@@ -101,7 +99,7 @@ wss.on("connection", (socket) => {
 
 const getApiAndEmit = socket => {
   History.find().then((data) => {
-    wss.emit("data", data);
+    socket.emit("data", data);
   })
   const response = new Date();
   // Emitting a new message. Will be consumed by the client
@@ -109,13 +107,13 @@ const getApiAndEmit = socket => {
 };
 // const port =  4001;
 
-server.listen(PORT2, () => console.log(`Listening on port ${PORT2}`))
+server.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 
 
 
 
-app.listen(PORT , () => {
-  log(`listening to ${PORT}`)
+app.listen(PORT2 , () => {
+  log(`listening to ${PORT2}`)
 })
 
 module.exports = app;

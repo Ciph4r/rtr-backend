@@ -25,9 +25,9 @@
 
 ---
 
-<details>
+
   <summary>Recent Github Activity</summary>
 <!--START_SECTION:activity-->
 <!--END_SECTION:activity-->
 
-</details>
+

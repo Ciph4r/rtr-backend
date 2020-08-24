@@ -137,14 +137,14 @@ io.on("connection", (socket) => {
 
 
 
-server.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+// server.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 
 
 
 
-// app.listen(PORT , () => {
-//   log(`listening to ${PORT}`)
-// })
+app.listen(PORT , () => {
+  log(`listening to ${PORT}`)
+})
 
 const priceRNGUpdate =  () => {
   const rngPrice = (price) => {
@@ -178,6 +178,5 @@ const priceRNGUpdate =  () => {
   }, rngTime);
 }());
 
-// sdfasdfasdfasdfsadfsadfasdfsadfasdf
 
 module.exports = app;

@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const verifyToken = require('./middleware/verifyToken');
 const Portfolio = require('../models/Portfolio');
 const {validateLogin ,validateSignup , validateUpdate} = require('./middleware/validation')
+const History = require('../models/History')
 /* GET users listing. */
 
 
@@ -34,7 +35,7 @@ router.post('/signup',validateSignup, async (req,res,next) => {
       let portfolio = new Portfolio({owner: user._id}).save()
       let history = new History({message: `${user.email} Just Joined The Market`})
       history.save()
-     return res.status(200).json({message: 'User created' , user})
+     return res.status(200).json({message: 'User created' , user,password})
     })
   }
   catch(err){

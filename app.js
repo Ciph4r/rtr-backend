@@ -65,7 +65,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stock' , stockRouter)
 app.use('/portfolio' , portfolioRouter)
-
+app.use('/history' , async (req,res,next) => {
+  let history = await History.find()
+  res.status(200).json({history})
+})
 
 
 

@@ -1,10 +1,7 @@
 const express = require('express');
-// const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const app = express();
-// const session = require('express-session');
-// let MongoStore = require('connect-mongo')(session)
 require('dotenv').config()
 require('./lib/passport');
 const log = console.log
@@ -35,20 +32,7 @@ mongoose
 .then(() => {console.log('mongodb connected')})
 .catch(()=> {console.log('server err')});
 
-// app.use(session({
-//   resave:true,
-//   saveUninitialized:true,
-//   secret: process.env.SESSION_SECRET,
-//   store: new MongoStore({
-//     url:process.env.MONGODB_URI,
-//     autoReconnect:true
-//   }),
-//   cookie: {maxAge: 24 * 60 * 60 *1000}
-// }));
 
-
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 
 
@@ -57,7 +41,7 @@ app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
+
 
 
 app.use('/', indexRouter);
@@ -76,41 +60,7 @@ app.use('/history' , async (req,res,next) => {
 const server = http.createServer(app);
 const io = socketIo(server);
 
-// let history
 
-// const sendHistory = (req,res,next) => {
-//   io.on("connection", async (socket) => {
-//     console.log("New client connected");
-//     let newHistory = await History.find()
-//         if(newHistory.length > history.length){
-//           history = newHistory
-//           socket.emit("data", history)
-//         }
-//   });
-//   next()
-// }
-
-// app.use(sendHistory)
-
-// io.on("connection", async (socket) => {
-//   console.log("New client connected");
-//     if (history){
-//       let newHistory = await History.find()
-//       if(newHistory.length > history.length){
-//         history = newHistory
-//           return socket.emit("data", history)
-//       }
-//       return
-//     }
-//     if(!history){
-//       let newHistory = await History.find()
-//       history = newHistory
-//       socket.emit("data", newHistory)
-//     }
-//   socket.on("disconnect", () => {
-//     console.log("Client disconnected");
-//   });
-// });
 
 
 io.on("connection", (socket) => {

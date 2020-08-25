@@ -6,7 +6,9 @@ const jwt = require('jsonwebtoken')
 const verifyToken = require('./middleware/verifyToken');
 const Portfolio = require('../models/Portfolio');
 const {validateLogin ,validateSignup , validateUpdate} = require('./middleware/validation')
-const History = require('../models/History')
+const History = require('../models/History');
+const Stocks = require('../models/Stocks');
+const { NetworkAuthenticationRequire } = require('http-errors');
 /* GET users listing. */
 
 
@@ -119,6 +121,80 @@ router.post('/user' , verifyToken , async (req,res,next) => {
 })
 
 
+router.get('/leaderboards' , async(req,res) => {
+  let leaderboards = []
+ 
+  let users = await User.find()
 
+  for (const user of users){
+              let userObject = {
+              name : user.email,
+              netWorth : user.capital
+              }
+  // let netWorth = 0
+  // console.log(user)
+  let portfolios = await Portfolio.findOne({owner : user._id})
+    if (portfolios.stocks.length < 1){
+      userObject.netWorth = userObject.netWorth.toFixed(2)
+      leaderboards.push(userObject)
+    }
+ 
+  for (const portfolioStock of portfolios.stocks){
+    let stock = await Stocks.findById(portfolioStock.id)
+    if (`${stock.owner}` === `${user._id}`){
+           userObject.netWorth += stock.units * stock.price   
+          }
+          if (`${stock.owner}` !== `${user._id}`) {
+            userObject.netWorth += portfolioStock.units * stock.price
+          }
+          if (portfolios.stocks[portfolios.stocks.length -1] === portfolioStock){
+                userObject.netWorth = userObject.netWorth.toFixed(2)
+                leaderboards.push(userObject)
+          }
+  }
+}
+
+
+ return res.send({leaderboards})
+
+
+})
+
+
+
+ 
+
+// router.get('/leaderboards' , async(req,res) => {
+//   let leaderboards = []
+  
+  
+//   let users = await User.find()
+//   await users.forEach( async (user) => {
+//     console.log(user)
+//     // let userObject = {
+//     //   name : user.email,
+//     //   netWorth : 0
+//     // }
+//     let netWorth = 0
+//     let portfolio = await Portfolio.findOne({owner : user._id})
+//     portfolio.stocks.forEach(async (portfolioStock) => {
+//       let stock = await Stocks.findById(portfolioStock.id)
+      
+//       if( `${stock.owner}` === `${user._id}`){
+//        netWorth += stock.units * stock.price   
+//       }
+//       if (`${stock.owner}` !== `${user._id}`) {
+//         netWorth += portfolioStock.units * stock.price
+//       }
+//       console.log(netWorth)
+//     })
+    
+    
+//   })
+  
+// //  return res.send({leaderboards})
+
+
+// })
 
 module.exports = router;

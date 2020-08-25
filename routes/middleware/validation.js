@@ -51,6 +51,10 @@ module.exports = {
         if(!email|| !password){
             return res.status(500).json({errors : 'All field must be filled'})
         }
+        if(email){
+            if(!email.includes('@') || !email.includes('.') ){
+                return res.status(500).json({errors : 'Use a valid Email'})
+            }
         next()
     },
     validateUpdate: (req,res,next) => {

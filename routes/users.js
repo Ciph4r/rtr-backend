@@ -154,47 +154,17 @@ router.get('/leaderboards' , async(req,res) => {
   }
 }
 
+leaderboards.sort((a,b) => 
+  b.netWorth - a.netWorth
+)
+let returnLeader = leaderboards.sort((a,b) => 
+b.netWorth - a.netWorth
+).slice(0,10)
 
- return res.send({leaderboards})
-
+ return res.status(200).json({returnLeader})
 
 })
 
 
-
- 
-
-// router.get('/leaderboards' , async(req,res) => {
-//   let leaderboards = []
-  
-  
-//   let users = await User.find()
-//   await users.forEach( async (user) => {
-//     console.log(user)
-//     // let userObject = {
-//     //   name : user.email,
-//     //   netWorth : 0
-//     // }
-//     let netWorth = 0
-//     let portfolio = await Portfolio.findOne({owner : user._id})
-//     portfolio.stocks.forEach(async (portfolioStock) => {
-//       let stock = await Stocks.findById(portfolioStock.id)
-      
-//       if( `${stock.owner}` === `${user._id}`){
-//        netWorth += stock.units * stock.price   
-//       }
-//       if (`${stock.owner}` !== `${user._id}`) {
-//         netWorth += portfolioStock.units * stock.price
-//       }
-//       console.log(netWorth)
-//     })
-    
-    
-//   })
-  
-// //  return res.send({leaderboards})
-
-
-// })
 
 module.exports = router;

@@ -2,8 +2,16 @@
 #### Sever Status
 [![Website](https://img.shields.io/website?label=rtr.surge.sh&style=for-the-badge&url=https%3A%2F%2Frtr.surge.sh)](https://rtr.surge.sh)
 <br />
+<details>
+<summary> Hosting </summary>
+FrontEnd: Surge
+<br />
+BackEnd: Heroku
+<br />
+Database: Mongo Atlas
+</details>
 
-![Visits Badge](https://badges.pufler.dev/visits/ciph4r/rtr-backend)
+<br />
 
 ### Languages and Tools Used:
 
@@ -21,13 +29,13 @@
 <br />
 <br />
 
-
+<!-- START gadpp -->
 
 ---
 
-
+<details>
   <summary>Recent Github Activity</summary>
 <!--START_SECTION:activity-->
 <!--END_SECTION:activity-->
 
-<!-- START gadpp -->
+</details>

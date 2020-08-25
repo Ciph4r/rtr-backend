@@ -99,6 +99,8 @@ Database: Mongo Atlas
 <br />
 /user
 <br />
+/leaderboards
+<br/>
 </details>
 
 <br/>
@@ -136,8 +138,9 @@ Database: Mongo Atlas
 4. rtr-frontend "Change Proxy inside package.json to http://localhost:8080"
 5. rtr-frontend "Change ENDPOINT inside /components/Live.jsx to http://localhost:4000"
 6. rtr-backend "Uncomment out app.listen inside app.js"
-7. rtr-backend "Create .env inside Root folder and set MONGODB_URL , TOKEN_SECRET , PORT = 8080 , PORT2 = 4000
-8. npm start on both 
+7. rtr-backend "Set server.listen to PORT2"
+8. rtr-backend "Create .env inside Root folder and set MONGODB_URL , TOKEN_SECRET , PORT = 8080 , PORT2 = 4000
+9. npm start on both 
 
 ---
 

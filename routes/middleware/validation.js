@@ -55,6 +55,7 @@ module.exports = {
             if(!email.includes('@') || !email.includes('.') ){
                 return res.status(500).json({errors : 'Use a valid Email'})
             }
+        }
         next()
     },
     validateUpdate: (req,res,next) => {

@@ -2,16 +2,13 @@
 #### Sever Status
 [![Website](https://img.shields.io/website?label=rtr.surge.sh&style=for-the-badge&url=https%3A%2F%2Frtr.surge.sh)](https://rtr.surge.sh)
 <br />
-<details>
-<summary> Hosting </summary>
-FrontEnd: Surge
-<br />
-BackEnd: Heroku
-<br />
-Database: Mongo Atlas
-</details>
 
-<br />
+#### FrontEnd
+[![Visits Badge](https://badges.pufler.dev/visits/ciph4r/rtr-frontend)](https://github.com/Ciph4r/rtr-frontend)
+#### BackEnd
+[![Visits Badge](https://badges.pufler.dev/visits/ciph4r/rtr-backend)](https://github.com/Ciph4r/rtr-backend)
+
+---
 
 ### Languages and Tools Used:
 
@@ -26,16 +23,124 @@ Database: Mongo Atlas
 <img align="left" alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" />
 <img align="left" alt="Terminal" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/terminal/terminal.png" />
 
-<br />
-<br />
+<br/>
+<br/>
 
-<!-- START gadpp -->
+#### Packages Used:
+
+<br/>
+
+Socket IO
+<BR/>
+Bcryptjs
+<BR/>
+Cors
+<BR/>
+Jsonwebtoken
+<BR/>
+Express
+<BR/>
+Dotenv
+<BR/>
+Moment
+<BR/>
+Mongoose
+<br />
 
 ---
 
-<details>
-  <summary>Recent Github Activity</summary>
-<!--START_SECTION:activity-->
-<!--END_SECTION:activity-->
+<br />
 
+<details>
+<summary> Hosting  </summary>
+FrontEnd: Surge
+<br />
+BackEnd: Heroku
+<br />
+Database: Mongo Atlas
 </details>
+<br/>
+
+
+<details>
+<summary> Routes </summary>
+
+</br>
+
+ <details>
+<summary> FrontEnd </summary>
+
+<br/>
+/
+<br/>
+/profile
+<br/>
+/portfolio
+<br/>
+/createstock
+<br/>
+/stock/:id
+</details>
+
+<br/>
+
+<details>
+<summary> BackEnd </summary>
+
+<br/>
+
+<details>
+<summary> Users - "/users" </summary>
+/signup
+<br />
+/login
+<br />
+/update
+<br />
+/user
+<br />
+</details>
+
+<br/>
+
+ <details>
+<summary> Stocks - "/stock" </summary>
+/all
+<br />
+/stock/:id
+<br />
+/create
+<br />
+/buy/:id
+<br />
+/sell/:id
+</details>
+
+<br/>
+
+ <details>
+<summary> Portfolio - "/portfolio" </summary>
+/:email
+</details>
+</details>
+</details>
+
+<br/>
+
+---
+
+### Instructions For Local Use
+1. Fork https://github.com/Ciph4r/rtr-frontend
+2. Fork https://github.com/Ciph4r/rtr-backend
+3. npm install on both DIR
+4. rtr-frontend "Change Proxy inside package.json to http://localhost:8080"
+5. rtr-frontend "Change ENDPOINT inside /components/Live.jsx to http://localhost:4000"
+6. rtr-backend "Uncomment out app.listen inside app.js"
+7. rtr-backend "Create .env inside Root folder and set MONGODB_URL , TOKEN_SECRET , PORT = 8080 , PORT2 = 4000
+8. npm start on both 
+
+---
+
+### Contact Me
+
+david.lau@codeimmersives.com

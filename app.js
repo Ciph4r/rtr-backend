@@ -44,12 +44,12 @@ app.use(express.urlencoded({ extended: false }));
 
 
 
-app.use('/', indexRouter);
+app.use('/api', indexRouter);
 
-app.use('/users', usersRouter);
-app.use('/stock' , stockRouter)
-app.use('/portfolio' , portfolioRouter)
-app.use('/history' , async (req,res,next) => {
+app.use('/api/users', usersRouter);
+app.use('/api/stock' , stockRouter)
+app.use('/api/portfolio' , portfolioRouter)
+app.use('/api/history' , async (req,res,next) => {
   let history = await History.find()
   res.status(200).json({history})
 })
